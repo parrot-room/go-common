@@ -12,6 +12,7 @@ type ipRange struct {
 	end   net.IP
 }
 
+//Searching private range IP address
 var privateRanges = []ipRange{
 	ipRange{
 		start: net.ParseIP("10.0.0.0"),
