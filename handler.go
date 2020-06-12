@@ -38,6 +38,17 @@ func ResJSONErrorField(w http.ResponseWriter, data interface{}) (err error) {
 	return
 }
 
+//ResJSONErrorMessage response error message with type error
+func ResJSONErrorMessage(w http.ResponseWriter, errType, errMessage string) (err error) {
+	w.WriteHeader(422)
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	var resp ResponseErrMessage
+	resp.Message = errMessage
+	resp.ErrorType = errType
+	err = json.NewEncoder(w).Encode(resp)
+	return
+}
+
 //ResponseNoData type response with no data
 type ResponseNoData struct {
 	Message string `json:"message"`
@@ -52,6 +63,12 @@ type ResponseWithData struct {
 //ResponseErrField error field type response with data
 type ResponseErrField struct {
 	Message   string      `json:"message"`
-	ErrorType string      `json:"error_type`
+	ErrorType string      `json:"error_type"`
 	Field     interface{} `json:"field"`
+}
+
+//ResponseErrMessage error field type response with data
+type ResponseErrMessage struct {
+	Message   string `json:"message"`
+	ErrorType string `json:"error_type"`
 }
