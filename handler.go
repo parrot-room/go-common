@@ -26,6 +26,17 @@ func ResJSONWithData(w http.ResponseWriter, data interface{}) (err error) {
 	return
 }
 
+//ResJSONErrorField response error when error location in field
+func ResJSONErrorField(w http.ResponseWriter, data interface{}) (err error) {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	var resp ResponseErrField
+	resp.Message = "Some field data not suitable the requirement"
+	resp.ErrorType = "error_fields"
+	resp.Field = data
+	err = json.NewEncoder(w).Encode(resp)
+	return
+}
+
 //ResponseNoData type response with no data
 type ResponseNoData struct {
 	Message string `json:"message"`
@@ -37,8 +48,9 @@ type ResponseWithData struct {
 	Data    interface{} `json:"data"`
 }
 
-//ResponseErrField error filed type response with data
+//ResponseErrField error field type response with data
 type ResponseErrField struct {
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Message   string      `json:"message"`
+	ErrorType string      `json:"error_type`
+	Field     interface{} `json:"field"`
 }
