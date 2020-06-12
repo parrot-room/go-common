@@ -28,6 +28,7 @@ func ResJSONWithData(w http.ResponseWriter, data interface{}) (err error) {
 
 //ResJSONErrorField response error when error location in field
 func ResJSONErrorField(w http.ResponseWriter, data interface{}) (err error) {
+	w.WriteHeader(422)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	var resp ResponseErrField
 	resp.Message = "Some field data not suitable the requirement"
