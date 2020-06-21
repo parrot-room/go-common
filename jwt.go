@@ -16,6 +16,7 @@ type TokenParam struct {
 	Email     string `json:"email"`
 	Signature string `json:"signature"`
 	Role      int    `json:"role"`
+	Expired   int64  `json:"exp"`
 }
 
 //ClaimsToken jwt token claims struct
@@ -36,7 +37,7 @@ func GenerateJWT(claimParam TokenParam) (token string, err error) {
 		Email:     claimParam.Email,
 		Signature: claimParam.Signature,
 		Role:      claimParam.Role,
-		Expired:   time.Now().Add(time.Hour * 24).Unix(), // 24 hours expired. manual implement refresh token
+		Expired:   claimParam.Expired
 	}
 
 	signJwt := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
