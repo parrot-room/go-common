@@ -1,6 +1,8 @@
 package common
 
-import "context"
+import (
+	"context"
+)
 
 type contextKey string
 
@@ -17,6 +19,8 @@ var (
 	ContextEmail = contextKey("email")
 	// ContextSignature var
 	ContextSignature = contextKey("signature")
+	// ContextExpired var
+	ContextExpired = contextKey("exp")
 )
 
 //GetUserIDFromContext helper get context value
@@ -41,4 +45,10 @@ func GetEmailFromContext(ctx context.Context) (string, bool) {
 func GetRoleIDFromContext(ctx context.Context) (string, bool) {
 	role, ok := ctx.Value(ContextRoleID).(string)
 	return role, ok
+}
+
+//GetExpiredFromContext helper get expire from context value jwt
+func GetExpiredFromContext(ctx context.Context) (int64, bool) {
+	expire, ok := ctx.Value(ContextExpired).(int64)
+	return expire, ok
 }

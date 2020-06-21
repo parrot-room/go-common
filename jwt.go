@@ -2,7 +2,6 @@ package common
 
 import (
 	"os"
-	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -37,7 +36,7 @@ func GenerateJWT(claimParam TokenParam) (token string, err error) {
 		Email:     claimParam.Email,
 		Signature: claimParam.Signature,
 		Role:      claimParam.Role,
-		Expired:   claimParam.Expired
+		Expired:   claimParam.Expired,
 	}
 
 	signJwt := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
